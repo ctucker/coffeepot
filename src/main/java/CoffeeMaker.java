@@ -1,7 +1,7 @@
 /* A coffee maker, composed of a brewing component and a warming component */
 public class CoffeeMaker {
-	final BrewingDevice brewer;
-	final Warmer warmer;
+	private final BrewingDevice brewer;
+	private final Warmer warmer;
 
 	public CoffeeMaker() {
 		this.brewer = new Percolator();
@@ -10,21 +10,12 @@ public class CoffeeMaker {
 
 	public void prepare() {
 		brewer.brew();
-		warmer.trigger();
+		warmer.activate();
 	}
 }
 
 interface BrewingDevice {
 	void brew();
-}
-
-class Percolator implements BrewingDevice {
-	String coffeeType;
-
-	@Override
-	public void brew() {
-		coffeeType = "drip";
-	}
 }
 
 /* Heater that can be turned on or off */
@@ -39,21 +30,30 @@ interface Sensor {
 }
 
 interface Warmer {
-	void trigger();
+	void activate();
+}
+
+class Percolator implements BrewingDevice {
+	String coffeeType;
+
+	@Override
+	public void brew() {
+		coffeeType = "drip";
+	}
 }
 
 /* A warmer that turns on the heat only when coffee is present */
 class SensingWarmer implements Warmer {
 
-	final Heater heatingElement;
-	final Sensor potSensor;
+	private final Heater heatingElement;
+	private final Sensor potSensor;
 
 	public SensingWarmer() {
 		this.heatingElement = new HeatingElement();
 		this.potSensor = new PotSensor();
 	}
 
-	public void trigger() {
+	public void activate() {
 		if (potSensor.isCoffeePresent())
 			heatingElement.on();
 		else
@@ -64,7 +64,7 @@ class SensingWarmer implements Warmer {
 
 class HeatingElement implements Heater {
 
-	boolean isOn = false;
+	private boolean isOn = false;
 
 	@Override
 	public void on() {
@@ -74,6 +74,10 @@ class HeatingElement implements Heater {
 	@Override
 	public void off() {
 		this.isOn = false;
+	}
+
+	public boolean isOn() {
+		return this.isOn;
 	}
 }
 

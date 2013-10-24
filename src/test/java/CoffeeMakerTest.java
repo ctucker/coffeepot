@@ -8,9 +8,9 @@ public class CoffeeMakerTest {
 	}
 
 	// Tests we'd like to have:
-	// 1. That the coffee is brewed before the warmer is triggered
-	// 2. That the warmer turns the heating element on when there is coffee present
-	// 3. That the warmer turns the heating element off when there is no coffee present
+	// 1. That the warmer turns the heating element on when there is coffee present
+	// 2. That the warmer turns the heating element off when there is no coffee present
+	// 3. That the coffee is brewed before the warmer is triggered
 	// 4. That the coffee we make is the kind of coffee we want
 
 	// Things we'd like to be able to do by adapting the system:
