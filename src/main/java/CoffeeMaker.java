@@ -3,9 +3,9 @@ public class CoffeeMaker {
 	private final BrewingDevice brewer;
 	private final Warmer warmer;
 
-	public CoffeeMaker() {
-		this.brewer = new Percolator();
-		this.warmer = new SensingWarmer();
+	public CoffeeMaker(BrewingDevice brewer, Warmer warmer) {
+		this.brewer = brewer;
+		this.warmer = warmer;
 	}
 
 	public void prepare() {
@@ -45,19 +45,19 @@ class Percolator implements BrewingDevice {
 /* A warmer that turns on the heat only when coffee is present */
 class SensingWarmer implements Warmer {
 
-	private final Heater heatingElement;
-	private final Sensor potSensor;
+	private final Heater heater;
+	private final Sensor sensor;
 
-	public SensingWarmer() {
-		this.heatingElement = new HeatingElement();
-		this.potSensor = new PotSensor();
+	public SensingWarmer(Heater heater, Sensor sensor) {
+		this.heater = heater;
+		this.sensor = sensor;
 	}
 
 	public void activate() {
-		if (potSensor.isCoffeePresent())
-			heatingElement.on();
+		if (sensor.isCoffeePresent())
+			heater.on();
 		else
-			heatingElement.off();
+			heater.off();
 	}
 
 }
